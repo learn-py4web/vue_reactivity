@@ -31,10 +31,10 @@ let init = (app) => {
     };
 
     app.add = function () {
-        new_row = {}
+        let new_row = {}
         new_row.happy = false;
+        new_row._idx = app.vue.rows.length;
         app.vue.rows.push(new_row);
-        app.enumerate(app.vue.rows);
     };
 
     app.methods = {
