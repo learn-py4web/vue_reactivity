@@ -9,23 +9,39 @@ let init = (app) => {
 
     // This is the Vue data.
     app.data = {
-        // Complete as you see fit.
+        rows: [],
     };
 
     app.enumerate = (a) => {
-        // This adds an _idx field to each element of the array.
         let k = 0;
         a.map((e) => {e._idx = k++;});
         return a;
     };
 
+    app.add_happiness = function (a) {
+        a.map((r) => {
+            r.happy = false;
+        });
+        return a;
+    }
 
-    // This contains all the methods.
-    app.methods = {
-        // Complete as you see fit.
+    app.toggle_happy = function (r_idx) {
+        let r = app.vue.rows[r_idx];
+        r.happy = !r.happy;
     };
 
-    // This creates the Vue instance.
+    app.add = function () {
+        new_row = {}
+        new_row.happy = false;
+        app.vue.rows.push(new_row);
+        app.enumerate(app.vue.rows);
+    };
+
+    app.methods = {
+        add: app.add,
+        toggle_happy: app.toggle_happy,
+    };
+
     app.vue = new Vue({
         el: "#vue-target",
         data: app.data,
@@ -34,8 +50,10 @@ let init = (app) => {
 
     // And this initializes it.
     app.init = () => {
-        // Put here any initialization code.
-        // Typically this is a server GET call to load the data.
+        let rows = [{}, {}, {}];
+        app.enumerate(rows);
+        app.add_happiness(rows);
+        app.vue.rows = rows;
     };
 
     // Call to the initializer.

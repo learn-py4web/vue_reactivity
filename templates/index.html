@@ -8,7 +8,14 @@
 
 
 <div class="section" id="vue-target" v-cloak>
-  <!-- Put here your Vue.js template -->
+  <div v-for="r in rows" class="box">
+    <button @click="toggle_happy(r._idx)" class="button is-link">
+      <i class="fa fa-2x" :class="{'fa-smile-o': r.happy, 'fa-frown-o': !r.happy}"></i>
+    </button>
+  </div>
+  <button class="button is-success" @click="add">
+    <i class="fa fa-plus"></i>
+  </button>
 </div>
 
 
