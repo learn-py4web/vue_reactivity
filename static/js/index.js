@@ -20,20 +20,23 @@ let init = (app) => {
 
     app.add_happiness = function (a) {
         a.map((r) => {
-            r.happy = false;
+            Vue.set(r, 'happy', false);
         });
         return a;
     }
 
     app.toggle_happy = function (r_idx) {
         let r = app.vue.rows[r_idx];
-        r.happy = !r.happy;
+        let new_r = {};
+        new_r.happy = !r.happy;
+        new_r._idx = r._idx;
+        Vue.set(app.vue.rows, r_idx, new_r);
     };
 
     app.add = function () {
         let new_row = {}
-        new_row.happy = false;
         new_row._idx = app.vue.rows.length;
+        new_row.happy = false;
         app.vue.rows.push(new_row);
     };
 
@@ -52,8 +55,8 @@ let init = (app) => {
     app.init = () => {
         let rows = [{}, {}, {}];
         app.enumerate(rows);
-        app.add_happiness(rows);
         app.vue.rows = rows;
+        app.add_happiness(app.vue.rows);
     };
 
     // Call to the initializer.
